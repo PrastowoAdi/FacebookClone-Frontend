@@ -1,85 +1,16 @@
 /* eslint-disable jsx-a11y/alt-text */
 import "./style.css";
-import { Form, Formik } from "formik";
-import React, { useState } from "react";
-import { Link } from "react-router-dom";
-import LoginInput from "../../components/inputs/logininput";
-import * as Yup from "yup";
-
-const loginInfos = {
-  email: "",
-  password: "",
-};
+import LoginForm from "../../components/login/LoginForm";
+import Footer from "../../components/login/Footer";
+import RegisterForm from "../../components/login/RegisterForm";
 
 export default function Login() {
-  const [login, setLogin] = useState(loginInfos);
-  const { email, password } = login;
-  const handleLoginChange = (e) => {
-    const { name, value } = e.target;
-    setLogin({
-      ...login,
-      [name]: value,
-    });
-  };
-  const loginValidation = Yup.object({
-    email: Yup.string()
-      .required("Email address is required")
-      .email("Must be a valid email.")
-      .max(100),
-    password: Yup.string().required("Password is required"),
-  });
   return (
     <div className="login">
       <div className="login_wrapper">
-        <div className="login_wrap">
-          <div className="login_1">
-            <img src="../../../icons/facebook.svg" alt="" />
-            <span>
-              Facebook helps you connect and share with the people in your life.
-            </span>
-          </div>
-          <div className="login_2">
-            <div className="login_2_wrap">
-              <Formik
-                enableReinitialize
-                initialValues={{
-                  email,
-                  password,
-                }}
-                validationSchema={loginValidation}
-              >
-                {(formik) => (
-                  <Form>
-                    <LoginInput
-                      type="email"
-                      name="email"
-                      placeholder="Email address or phonenumber"
-                      onChange={handleLoginChange}
-                    />
-                    <LoginInput
-                      type="password"
-                      name="password"
-                      placeholder="Password"
-                      onChange={handleLoginChange}
-                      bottom
-                    />
-                    <button className="blue_btn" type="submit">
-                      Log In
-                    </button>
-                  </Form>
-                )}
-              </Formik>
-              <Link className="forgot_password" to="/forgot">
-                Forgotten pasword?
-              </Link>
-              <div className="sign_splitter"></div>
-              <button className="blue_btn open_signup">Create Account</button>
-            </div>
-            <Link to="/" className="sign_extra">
-              <b>Create a Page</b> for a celebrity, brand or business
-            </Link>
-          </div>
-        </div>
+        <LoginForm />
+        <RegisterForm />
+        <Footer />
       </div>
     </div>
   );
